@@ -17,6 +17,8 @@
   },
   "homepage": "https://github.com/patlehmann1/eat_da_burger#readme",
   "dependencies": {
+    "console-table": "^0.1.2",
+    "console.table": "^0.10.0",
     "dotenv": "^6.0.0",
     "express": "^4.16.3",
     "express-handlebars": "^3.0.0",
