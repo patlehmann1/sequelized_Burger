@@ -1,9 +1,10 @@
-require('./connection.js');
-const cTable = require('console-table');
+const connection = require('./connection');
+const cTable = require('console.table');
+const mysql = require("mysql");
 
 const orm = {
-    selectAll: function (tableInput) {
-        var queryString = `SELECT * FROM ${tableInput}`;
+    selectAll: function (table) {
+        var queryString = "SELECT * FROM " + table + ";";
         connection.query(queryString, function (err, result) {
             if (err) {
                 throw err;
@@ -11,8 +12,8 @@ const orm = {
             console.table(result);
         });
     },
-    insertOne: function(tableInput, colInput, dataInput) {
-        var queryString = `INSERT INTO ${tableInput} WHERE ${colInput} = ${dataInput};`;
+    insertOne: function(value1, value2) {
+        var queryString = "INSERT INTO burgers (burger_name, devoured) VALUES('" + value1 + "', '" + value2 + "');";
         connection.query(queryString, function (err, result) {
             if (err) {
                 throw err;
@@ -20,8 +21,9 @@ const orm = {
             console.table(result);
         });
     },
-    updateOne: function () {
-        var queryString = `UPDATE ${tableInput} SET ${colInput1} WHERE ${colInput2} = ${dataInput};`; 
+    updateOne: function (table, colInput1, newData, colInput2, dataInput) {
+        var queryString = 'UPDATE ' + table + ' SET ' + colInput1 + ' = "' + newData + '" WHERE ' + colInput2 + ' = ' + dataInput + ';'; 
+        console.log(queryString);
         connection.query(queryString, function (err, result) {
             if (err) {
                 throw err;
