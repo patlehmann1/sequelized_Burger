@@ -1,4 +1,5 @@
 require('dotenv').config();
+console.log(process.env.DB_PASS);
 var mysql = require("mysql");
 
 var connection = mysql.createConnection({
