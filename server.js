@@ -1,11 +1,12 @@
-var express = require('express');
-var bodyParser = require('body-parser');
-var methodOverride = require('method-override');
-var timeout = require('connect-timeout');
+const express = require('express');
+const bodyParser = require('body-parser');
+const methodOverride = require('method-override');
+const timeout = require('connect-timeout');
+const path = require('path');
 
-var app = express();
+const app = express();
 
-app.use('/static', express.static(path.join(__dirname, 'public')));
+app.use(express.static('public'));
 app.use(timeout(15000));
 app.use(haltOnTimedout);
 
@@ -19,18 +20,18 @@ app.use(haltOnTimedout);
 app.use(methodOverride('_method'));
 app.use(haltOnTimedout);
 
-var exphbs = require('express-handlebars');
+const exphbs = require('express-handlebars');
 app.engine('handlebars', exphbs({
     defaultLayout: 'main'
 }));
 app.set('view engine', 'handlebars');
 
-var routes = require('./controllers/burger_controller');
+const routes = require('./controllers/burger_controller');
 
 app.use('/', routes);
 app.use('/update', routes);
 app.use('/create', routes);
 app.use(haltOnTimedout);
 
-var port = process.env.PORT || 3000;
+const port = process.env.PORT || 3000;
 app.listen(port, () => console.log("Listening on port %s", port));
