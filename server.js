@@ -5,7 +5,7 @@ var timeout = require('connect-timeout');
 
 var app = express();
 
-app.use("/static", express.static("public")); 
+app.use('/static', express.static(path.join(__dirname, 'public')));
 app.use(timeout(15000));
 app.use(haltOnTimedout);
 
