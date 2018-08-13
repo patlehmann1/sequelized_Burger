@@ -1,4 +1,5 @@
 body {
-    background-color: darkslategray;
+    background-image: url(/img/what-the-hex-dark.png);
+    background-repeat: repeat;
     color: white !important;
 }
