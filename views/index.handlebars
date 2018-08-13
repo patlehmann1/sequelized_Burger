@@ -11,9 +11,7 @@
 			  {{#each burger_data}}
 			  	{{#unless devoured}}
 				<div class="col-xs-9 text-center">
-					<pre>
-					{{id}}. {{burger_name}}
-					</pre>
+					<textarea class="form-control" id="exampleFormControlTextarea1" rows="1">{{id}}. {{burger_name}}</textarea>
 				</div>
 				<div class="col-xs-3 text-center">
 					<form method="POST" action="/burgers/update?_method=PUT" class="button-size">
