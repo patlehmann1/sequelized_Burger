@@ -26,10 +26,10 @@ router.post('/burgers/create', function (req, res) {
     res.redirect('/burgers');
 });
 
-router.put('/burgers/update/:id', function (req, res) {
+router.put('/burgers/update/:id/:status', function (req, res) {
 
     db.burger.update({
-        devoured: req.body.devoured
+        devoured: parseInt(req.params.status)
     }, {
             where: { id: req.params.id }
         }).then(function () {

@@ -4,6 +4,9 @@ const app = express();
 const PORT = 8080;
 const db = require("./models/index");
 
+var methodOverride = require('method-override');
+app.use(methodOverride('_method'));
+
 const exphbs = require("express-handlebars");
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
