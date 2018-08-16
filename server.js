@@ -1,37 +1,23 @@
-const express = require('express');
-const bodyParser = require('body-parser');
-const methodOverride = require('method-override');
-const timeout = require('connect-timeout');
-const path = require('path');
-
+const express = require("express");
+var exphbs = require("express-handlebars");
+const bodyParser = require("body-parser");
 const app = express();
+const PORT = 8080;
+const db = require("./models/index");
 
-app.use(express.static('public'));
-app.use(timeout(15000));
-app.use(haltOnTimedout);
 
-function haltOnTimedout(req, res, next) {
-    if (!req.timedout) next();
-}
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(haltOnTimedout);
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(express.static("public"));
 
-app.use(methodOverride('_method'));
-app.use(haltOnTimedout);
+const router = require('./controllers/burger_controller');
+app.use('/', router);
 
-const exphbs = require('express-handlebars');
-app.engine('handlebars', exphbs({
-    defaultLayout: 'main'
-}));
-app.set('view engine', 'handlebars');
-
-const routes = require('./controllers/burger_controller');
-
-app.use('/', routes);
-app.use('/update', routes);
-app.use('/create', routes);
-app.use(haltOnTimedout);
-
-const port = process.env.PORT || 3000;
-app.listen(port, () => console.log("Listening on port %s", port));
+db.sequelize.sync().then(function() {
+  app.listen(PORT, function() {
+    console.log("App listening on PORT " + PORT);
+  });
+});
