@@ -21,7 +21,7 @@ router.post('/burgers/create', function (req, res) {
         burger_name: req.body.burger_name,
         devoured: req.body.devoured
     }).then(function (newBurger) {
-        res.json(newBurger);
+        // res.json(newBurger);
     })
     res.redirect('/burgers');
 });
